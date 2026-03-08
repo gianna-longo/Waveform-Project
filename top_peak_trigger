@@ -1,0 +1,57 @@
+//=========================================================
+// TOP MODULE - Nexys Video FPGA
+// Drives LEDs based on trigger pipeline
+//=========================================================
+
+module top_peak_trigger(
+
+    input  wire CLK100MHZ,
+    input  wire CPU_RESETN,
+
+    input  wire sample_valid,
+    input  wire [13:0] sample_in,
+
+    output wire [3:0] LED
+
+);
+
+wire rst;
+assign rst = ~CPU_RESETN;
+
+//-----------------------------------------
+// Trigger outputs
+
+wire peak_pulse;
+wire pair_detected;
+wire template_match;
+wire final_trigger;
+
+//-----------------------------------------
+// Trigger system
+
+trigger_system trigger_core(
+
+    .clk(CLK100MHZ),
+    .rst(rst),
+
+    .sample_valid(sample_valid),
+    .sample_in(sample_in),
+
+    .peak_pulse(peak_pulse),
+    .pair_detected(pair_detected),
+    .template_match(template_match),
+    .final_trigger(final_trigger)
+
+);
+
+//-----------------------------------------
+// LED pulse stretchers
+// makes short triggers visible
+
+pulse_stretch LED0_STRETCH (.clk(CLK100MHZ), .rst(rst), .in(final_trigger),   .out(LED[0]));
+pulse_stretch LED1_STRETCH (.clk(CLK100MHZ), .rst(rst), .in(peak_pulse),      .out(LED[1]));
+pulse_stretch LED2_STRETCH (.clk(CLK100MHZ), .rst(rst), .in(pair_detected),   .out(LED[2]));
+pulse_stretch LED3_STRETCH (.clk(CLK100MHZ), .rst(rst), .in(template_match),  .out(LED[3]));
+
+endmodule
+
