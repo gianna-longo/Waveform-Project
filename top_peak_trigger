@@ -1,35 +1,36 @@
-//=========================================================
-// TOP MODULE - Nexys Video FPGA
-// Drives LEDs based on trigger pipeline
-//=========================================================
-
 module top_peak_trigger(
-
-    input  wire CLK100MHZ,
-    input  wire CPU_RESETN,
-
-    input  wire sample_valid,
-    input  wire [13:0] sample_in,
-
-    output wire [3:0] LED
-
+    input CLK100MHZ,
+    output [3:0] LED
 );
 
 wire rst;
-assign rst = ~CPU_RESETN;
+assign rst = 0;
 
-//-----------------------------------------
-// Trigger outputs
+wire [13:0] sample_in;
+wire sample_valid;
 
 wire peak_pulse;
 wire pair_detected;
 wire template_match;
 wire final_trigger;
 
-//-----------------------------------------
-// Trigger system
+//////////////////////////////////////////////
+// waveform source (Python data stream)
 
-trigger_system trigger_core(
+waveform_source SOURCE(
+
+    .clk(CLK100MHZ),
+    .rst(rst),
+
+    .sample_out(sample_in),
+    .sample_valid(sample_valid)
+
+);
+
+//////////////////////////////////////////////
+// trigger system
+
+trigger_system TRIGGER(
 
     .clk(CLK100MHZ),
     .rst(rst),
@@ -43,15 +44,20 @@ trigger_system trigger_core(
     .final_trigger(final_trigger)
 
 );
+//////////////////////////////////////////////
+// LED trigger sequence display
 
-//-----------------------------------------
-// LED pulse stretchers
-// makes short triggers visible
+led_trigger_sequence LED_SEQ(
 
-pulse_stretch LED0_STRETCH (.clk(CLK100MHZ), .rst(rst), .in(final_trigger),   .out(LED[0]));
-pulse_stretch LED1_STRETCH (.clk(CLK100MHZ), .rst(rst), .in(peak_pulse),      .out(LED[1]));
-pulse_stretch LED2_STRETCH (.clk(CLK100MHZ), .rst(rst), .in(pair_detected),   .out(LED[2]));
-pulse_stretch LED3_STRETCH (.clk(CLK100MHZ), .rst(rst), .in(template_match),  .out(LED[3]));
+    .clk(CLK100MHZ),
+    .rst(rst),
 
+    .peak(peak_pulse),
+    .pair(pair_detected),
+    .match(template_match),
+    .final_trigger(final_trigger),
+
+    .LED(LED)
+
+);
 endmodule
-
