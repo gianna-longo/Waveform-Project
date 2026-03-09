@@ -4,28 +4,28 @@ This project implements a real-time FPGA trigger system for waveform data. The s
 Many detector systems require real-time event selection based on waveform features. This project demonstrates a simplified FPGA  trigger chain similar to those used in particle detectors and radiation instrumentation. The FPGA processes streaming waveform samples and identifies candidate events using peak detection, coincidence logic, and template matching.
 
 Repo Nevigation:
-project/
-│
-├── verilog/
-│   ├── top_peak_trigger.v
-│   ├── trigger_system.v
-│   ├── peak_detector.v
-│   ├── two_peak_window.v
-│   ├── template_matcher.v
-│   ├── led_trigger_sequence.v
-│
-├── memory/
-│   ├── waveform.mem
-│   ├── template.mem
-│
-├── python/
-│   ├── generate_waveform.py
-│
-├── simulation/
-│   ├── tb_trigger_system.v
-│
-└── constraints/
-    ├── nexys_video.xdc
+project
+
+     verilog
+        top_peak_trigger.v
+        trigger_system.v
+        peak_detector.v
+        two_peak_window.v
+        template_matcher.v
+        led_trigger_sequence.v
+
+    memory
+        waveform.mem
+        template.mem
+    
+    python
+        generate_waveform.py
+
+    simulation
+        tb_trigger_system.v
+    
+    constraints
+        nexys_video.xdc
 
 In Vivado: 
 Design Sources:
