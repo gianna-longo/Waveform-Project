@@ -1,6 +1,6 @@
 module waveform_source
 #(
-    parameter N = 20000,
+    parameter N = 20000,      //possible update: I think this should be N=200000
     parameter ADC_WIDTH = 14
 )
 (
