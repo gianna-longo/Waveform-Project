@@ -1,0 +1,85 @@
+Backend: Vivado
+ClockPeriod: 10
+HLSConfig:
+  LayerName:
+    conv1d_15:
+      Precision:
+        bias: fixed<24,8>
+        result: fixed<24,8>
+        weight: fixed<24,8>
+      Trace: false
+    conv1d_15_input:
+      Precision:
+        result: fixed<24,8>
+      Trace: false
+    conv1d_15_relu:
+      Precision:
+        result: fixed<24,8>
+      Trace: false
+    conv1d_16:
+      Precision:
+        bias: fixed<24,8>
+        result: fixed<24,8>
+        weight: fixed<24,8>
+      Trace: false
+    conv1d_16_relu:
+      Precision:
+        result: fixed<24,8>
+      Trace: false
+    conv1d_17:
+      Precision:
+        bias: fixed<24,8>
+        result: fixed<24,8>
+        weight: fixed<24,8>
+      Trace: false
+    conv1d_17_relu:
+      Precision:
+        result: fixed<24,8>
+      Trace: false
+    dense_10:
+      Precision:
+        bias: fixed<24,8>
+        result: fixed<24,8>
+        weight: fixed<24,8>
+      Trace: false
+    dense_10_relu:
+      Precision:
+        result: fixed<24,8>
+      Trace: false
+    dense_11:
+      Precision:
+        bias: fixed<24,8>
+        result: fixed<24,8>
+        weight: fixed<24,8>
+      Trace: false
+    dense_11_softmax:
+      Precision:
+        result: fixed<24,8>
+      Trace: false
+    global_average_pooling1d_5:
+      Precision:
+        result: fixed<24,8>
+      Trace: false
+    max_pooling1d_10:
+      Precision:
+        result: fixed<24,8>
+      Trace: false
+    max_pooling1d_11:
+      Precision:
+        result: fixed<24,8>
+      Trace: false
+  Model:
+    BramFactor: 1000000000
+    Precision: fixed<24,8>
+    ReuseFactor: 1
+    Strategy: Latency
+    TraceOutput: false
+IOType: io_parallel
+InputData: null
+KerasModel: !keras_model '/Users/giannalongo/Downloads/pioneer/476_Final/hls4ml_project/keras_model.h5'
+OutputDir: /Users/giannalongo/Downloads/pioneer/476_Final/hls4ml_project
+OutputPredictions: null
+Part: xc7a200tsbg484-1
+ProjectName: myproject
+Stamp: ccFCBCc9
+Version: 1.0.0
