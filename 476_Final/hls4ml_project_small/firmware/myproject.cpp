@@ -11,8 +11,6 @@ void myproject(
     // hls-fpga-machine-learning insert IO
     #pragma HLS ARRAY_RESHAPE variable=conv1d_input complete dim=0
     #pragma HLS ARRAY_PARTITION variable=layer14_out complete dim=0
-    #pragma HLS INTERFACE ap_vld port=conv1d_input,layer14_out 
-    #pragma HLS DATAFLOW 
 
 #ifndef __SYNTHESIS__
     static bool loaded_weights = false;
